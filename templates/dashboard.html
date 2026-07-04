@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-2">
+        <div class="panel-editorial text-center">
+            <div class="stat-label">Landlords</div>
+            <div class="stat-number">{{ data.landlords }}</div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel-editorial text-center">
+            <div class="stat-label">Properties</div>
+            <div class="stat-number">{{ data.properties }}</div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel-editorial text-center">
+            <div class="stat-label">Units</div>
+            <div class="stat-number">{{ data.units }}</div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel-editorial text-center">
+            <div class="stat-label">Tenants</div>
+            <div class="stat-number">{{ data.tenants }}</div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel-editorial text-center">
+            <div class="stat-label">Active Leases</div>
+            <div class="stat-number">{{ data.active_leases }}</div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel-editorial text-center">
+            <div class="stat-label">Staff File</div>
+            <div class="stat-number">{{ data.employees }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="col-md-12">
+        <div class="panel-editorial">
+            <h3 style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 25px; color: #000;">Recent Cash Flow Registry</h3>
+            <table class="table table-editorial">
+                <thead>
+                    <tr>
+                        <th>Payer Entity</th>
+                        <th>Method</th>
+                        <th>Reference Token</th>
+                        <th>Transaction Date</th>
+                        <th>Amount Credited</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td><strong>{{ payment.full_name }}</strong></td>
+                        <td>{{ payment.payment_method }}</td>
+                        <td><span style="font-family: monospace; background: #eee; padding: 4px 8px; letter-spacing: 0.5px; font-size: 11px;">{{ payment.reference_no }}</span></td>
+                        <td>{{ payment.payment_date }}</td>
+                        <td><strong>KES {{ payment.amount }}</strong></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center" style="color:#777; padding:20px; text-transform:uppercase; font-size:10px; letter-spacing:1px;">No payment receipts processed in this session link.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

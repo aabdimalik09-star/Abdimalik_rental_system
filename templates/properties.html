@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="margin-top: 40px; margin-bottom: 80px;">
+    
+    <!-- Header Section -->
+    <div class="row" style="margin-bottom: 40px;">
+        <div class="col-md-12">
+            <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #777; margin-bottom: 5px;">
+                Asset Ledger
+            </p>
+            <h2 style="font-size: 28px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin-top: 0; color: #000;">
+                Properties Overview
+            </h2>
+            <div style="width: 30px; height: 1px; background: #000; margin-top: 15px;"></div>
+        </div>
+    </div>
+
+    <!-- Management Portal Interaction -->
+    <div class="row">
+        <!-- Left Side: Dynamic Data Table -->
+        <div class="col-md-8">
+            <div style="border-top: 1px solid #000; padding-top: 10px; margin-bottom: 30px;">
+                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #000;">
+                    Registered Real Estate Assets
+                </p>
+            </div>
+            
+            <table class="table" style="font-size: 12px; font-weight: 300; letter-spacing: 0.5px;">
+                <thead>
+                    <tr style="text-transform: uppercase; font-size: 10px; letter-spacing: 2px; border-bottom: 2px solid #000;">
+                        <th style="padding: 12px 0; border: none;">Property Name</th>
+                        <th style="padding: 12px 0; border: none;">Location / Address</th>
+                        <th style="padding: 12px 0; border: none; text-align: right;">Landlord Identity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in properties %}
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px 0; font-weight: 700; text-transform: uppercase; border: none;">
+                            {{ item.name }}
+                        </td>
+                        <td style="padding: 15px 0; color: #444; border: none;">
+                            {{ item.location }}
+                        </td>
+                        <td style="padding: 15px 0; text-align: right; border: none; font-variant: tabular-nums;">
+                            ID: {{ item.landlord_id }}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" style="padding: 30px 0; text-align: center; color: #999; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; border: none;">
+                            No structural assets recorded in system engine.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Right Side: Addition Registry Form -->
+        <div class="col-md-4">
+            <div style="border-top: 1px solid #000; padding-top: 10px; margin-bottom: 20px;">
+                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #000;">
+                    Add Asset Unit
+                </p>
+            </div>
+
+            <form method="POST" action="{{ url_for('manage_properties') }}" style="background: #fafafa; padding: 25px; border: 1px solid #eee;">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #444; font-weight: 400;">Property Title Name</label>
+                    <input type="text" name="name" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; font-size: 12px; padding: 10px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #444; font-weight: 400;">Physical Location</label>
+                    <input type="text" name="location" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; font-size: 12px; padding: 10px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 30px;">
+                    <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #444; font-weight: 400;">Assign Landlord</label>
+                    <select name="landlord_id" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; font-size: 12px; height: 40px;">
+                        <option value="">-- Choose Account --</option>
+                        {% for landlord in landlords %}
+                        <option value="{{ landlord.id }}">{{ landlord.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-block" style="background: #000; color: #fff; border-radius: 0; padding: 12px 0; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700; border: 1px solid #000; transition: all 0.3s;">
+                    Commit Registry Entry
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

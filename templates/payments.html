@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel-editorial" style="border: 1px solid #111;">
+            <h3 style="font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 20px;">Process Inward Remittance</h3>
+            <form method="POST" action="{{ url_for('manage_payments') }}">
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Active Account Link</label>
+                    <select name="lease_id" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; height: 34px;">
+                        <option value="">-- Choose Account --</option>
+                        {% for lease in leases %}
+                        <option value="{{ lease.lease_id }}">{{ lease.full_name }} (Door {{ lease.unit_number }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Transaction Value Amount (KES)</label>
+                    <input type="text" name="amount" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Remittance Vector (e.g. M-Pesa, Bank Wire)</label>
+                    <input type="text" name="payment_method" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Execution Clearance Date</label>
+                    <input type="date" name="payment_date" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Clearance Reference Code (e.g. M-Pesa Code)</label>
+                    <input type="text" name="reference_no" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Validation State</label>
+                    <select name="status" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; height: 34px;">
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" style="background: #000; color: #fff; width: 100%; border-radius: 0; text-transform: uppercase; letter-spacing: 1px; font-size: 10px; font-weight: 700; padding: 10px;">Post Remittance Receipt</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel-editorial">
+            <h3 style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 20px; color: #000;">Master Remittance Log</h3>
+            <table class="table table-editorial">
+                <thead>
+                    <tr>
+                        <th>Receipt ID</th>
+                        <th>Payer Title</th>
+                        <th>Channel</th>
+                        <th>Reference Token</th>
+                        <th>Amount Settlement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td><span style="font-family: monospace; background: #eee; padding: 2px 6px;">#{{ payment.payment_id }}</span></td>
+                        <td><strong>{{ payment.full_name }}</strong></td>
+                        <td>{{ payment.payment_method }}</td>
+                        <td><span style="font-family: monospace; background: #fdfdfd; border: 1px solid #ddd; padding: 2px 6px;">{{ payment.reference_no }}</span></td>
+                        <td><strong>KES {{ payment.amount }}</strong></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center" style="color: #777; padding: 20px; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;">No transaction logs settled in this environment sequence.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

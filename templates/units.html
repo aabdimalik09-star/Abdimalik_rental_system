@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel-editorial" style="border: 1px solid #111;">
+            <h3 style="font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 20px;">Add Property Unit</h3>
+            <form method="POST" action="{{ url_for('manage_units') }}">
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Parent Property Asset</label>
+                    <select name="property_id" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; height: 34px;">
+                        <option value="">-- Choose Asset Link --</option>
+                        {% for prop in properties %}
+                        <option value="{{ prop.property_id }}">{{ prop.property_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Unit / Door Number</label>
+                    <input type="text" name="unit_number" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Bedrooms Count</label>
+                    <input type="number" name="bedrooms" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Bathrooms Count</label>
+                    <input type="number" name="bathrooms" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Target Rent Amount (KES)</label>
+                    <input type="text" name="rent_amount" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
+                </div>
+                <div class="form-group">
+                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Status Code</label>
+                    <select name="status" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; height: 34px;">
+                        <option value="Vacant">Vacant</option>
+                        <option value="Occupied">Occupied</option>
+                        <option value="Maintenance">Maintenance</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" style="background: #000; color: #fff; width: 100%; border-radius: 0; text-transform: uppercase; letter-spacing: 1px; font-size: 10px; font-weight: 700; padding: 10px;">Deploy Unit Door</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel-editorial">
+            <h3 style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 20px; color: #000;">Unit Inventory Matrix</h3>
+            <table class="table table-editorial">
+                <thead>
+                    <tr>
+                        <th>Unit ID</th>
+                        <th>Property Name</th>
+                        <th>Door No.</th>
+                        <th>Layout Plan</th>
+                        <th>Monthly Rent</th>
+                        <th>Occupancy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for unit in units %}
+                    <tr>
+                        <td><span style="font-family: monospace; background: #eee; padding: 2px 6px;">#{{ unit.unit_id }}</span></td>
+                        <td>{{ unit.property_name }}</td>
+                        <td><strong>{{ unit.unit_number }}</strong></td>
+                        <td style="font-size: 11px; color: #555;">{{ unit.bedrooms }} BR / {{ unit.bathrooms }} BA</td>
+                        <td><strong>KES {{ unit.rent_amount }}</strong></td>
+                        <td><span class="label" style="background: {% if unit.status == 'Vacant' %}#222{% else %}#777{% endif %}; border-radius: 0; text-transform: uppercase; font-weight: normal; letter-spacing: 0.5px; padding: 4px 8px;">{{ unit.status }}</span></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center" style="color: #777; padding: 20px; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;">No active space inventory configured.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

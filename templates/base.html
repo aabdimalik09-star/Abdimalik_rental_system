@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdimalik Rental System</title>
+    <!-- Clean Structural Styling Grid -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        /* Editorial Sticky Navigation Panel */
+        .zara-nav {
+            border-bottom: 1px solid #eeeeee;
+            padding: 20px 0;
+            background: #ffffff;
+        }
+        .nav-brand-text {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #000000;
+            text-decoration: none;
+        }
+        .nav-brand-text:hover {
+            text-decoration: none;
+            color: #000000;
+        }
+        .nav-link-item {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444444;
+            margin-left: 20px;
+            font-weight: 400;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .nav-link-item:hover {
+            color: #000000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Unified Navigation Bar -->
+    <nav class="zara-nav">
+        <div class="container-fluid" style="padding-left: 30px; padding-right: 30px;">
+            <div class="row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div class="col-md-3 col-xs-12">
+                    <a class="nav-brand-text" href="{{ url_for('index') }}">RENTAL LEDGER</a>
+                </div>
+                <div class="col-md-9 col-xs-12 text-right">
+                    {% if session.get('user_id') %}
+                        <!-- Authenticated User System Links -->
+                        <a class="nav-link-item" href="{{ url_for('dashboard') }}">Overview</a>
+                        <a class="nav-link-item" href="{{ url_for('manage_properties') }}">Properties</a>
+                        <a class="nav-link-item" href="{{ url_for('manage_units') }}">Units</a>
+                        <a class="nav-link-item" href="{{ url_for('manage_tenants') }}">Tenants</a>
+                        <a class="nav-link-item" href="{{ url_for('manage_leases') }}">Leases</a>
+                        <a class="nav-link-item" href="{{ url_for('manage_payments') }}">Payments</a>
+                        
+                        <!-- Expanded Architecture Modules -->
+                        <a class="nav-link-item" href="{{ url_for('manage_invoices') }}">Invoices</a>
+                        <a class="nav-link-item" href="{{ url_for('manage_maintenance') }}">Maintenance</a>
+                        <a class="nav-link-item" href="{{ url_for('manage_employees') }}">Employees</a>
+                        
+                        <a class="nav-link-item" href="{{ url_for('logout') }}" style="color: #aa0000; margin-left: 25px; font-weight: 700;">Sign Out</a>
+                    {% else %}
+                        <!-- Public Guest Views -->
+                        <a class="nav-link-item" href="{{ url_for('login') }}">Login</a>
+                        <a class="nav-link-item" href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dynamic Application Content Container -->
+    <div class="container-fluid" style="padding: 20px 30px;">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
