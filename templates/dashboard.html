@@ -1,75 +1,56 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row">
-    <div class="col-md-2">
-        <div class="panel-editorial text-center">
-            <div class="stat-label">Landlords</div>
-            <div class="stat-number">{{ data.landlords }}</div>
+<div class="container-fluid" style="padding: 0; background: #fafafa; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    
+    <div style="background: #ffffff; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; font-weight: 800; font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">A</div>
+            <div>
+                <span style="color: #111111; font-weight: 800; font-size: 18px; letter-spacing: 3px; display: block; text-transform: uppercase; margin: 0;">ABDIMALIK</span>
+                <span style="color: #ba9e47; font-weight: 700; font-size: 10px; letter-spacing: 2px; display: block; text-transform: uppercase; margin: 0;">RENTAL SYSTEM</span>
+            </div>
+        </div>
+        <div>
+            <a href="{{ url_for('logout') }}" style="font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ec5b5b; text-decoration: none;">SYSTEM LOGOUT</a>
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="panel-editorial text-center">
-            <div class="stat-label">Properties</div>
-            <div class="stat-number">{{ data.properties }}</div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="panel-editorial text-center">
-            <div class="stat-label">Units</div>
-            <div class="stat-number">{{ data.units }}</div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="panel-editorial text-center">
-            <div class="stat-label">Tenants</div>
-            <div class="stat-number">{{ data.tenants }}</div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="panel-editorial text-center">
-            <div class="stat-label">Active Leases</div>
-            <div class="stat-number">{{ data.active_leases }}</div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="panel-editorial text-center">
-            <div class="stat-label">Staff File</div>
-            <div class="stat-number">{{ data.employees }}</div>
-        </div>
-    </div>
-</div>
 
-<div class="row" style="margin-top: 20px;">
-    <div class="col-md-12">
-        <div class="panel-editorial">
-            <h3 style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 25px; color: #000;">Recent Cash Flow Registry</h3>
-            <table class="table table-editorial">
-                <thead>
-                    <tr>
-                        <th>Payer Entity</th>
-                        <th>Method</th>
-                        <th>Reference Token</th>
-                        <th>Transaction Date</th>
-                        <th>Amount Credited</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for payment in payments %}
-                    <tr>
-                        <td><strong>{{ payment.full_name }}</strong></td>
-                        <td>{{ payment.payment_method }}</td>
-                        <td><span style="font-family: monospace; background: #eee; padding: 4px 8px; letter-spacing: 0.5px; font-size: 11px;">{{ payment.reference_no }}</span></td>
-                        <td>{{ payment.payment_date }}</td>
-                        <td><strong>KES {{ payment.amount }}</strong></td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="4" class="text-center" style="color:#777; padding:20px; text-transform:uppercase; font-size:10px; letter-spacing:1px;">No payment receipts processed in this session link.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <div class="container" style="margin-top: 40px; padding-bottom: 60px;">
+        <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #ba9e47; margin: 0; font-weight: 700;">COMMAND CENTER</p>
+        <h2 style="font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin: 4px 0 32px 0; color: #111111;">SYSTEM OVERVIEW</h2>
+        
+        <div class="row" style="margin-bottom: 40px;">
+            <div class="col-md-4">
+                <div style="background: #ffffff; padding: 32px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
+                    <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ba9e47; margin: 0 0 12px 0;">TOTAL REAL ASSETS</p>
+                    <h3 style="font-size: 28px; font-weight: 300; margin: 0; color: #111111;">{{ properties_count if properties_count else '0' }} Buildings</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background: #ffffff; padding: 32px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
+                    <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ba9e47; margin: 0 0 12px 0;">ACTIVE LEASE HOLDERS</p>
+                    <h3 style="font-size: 28px; font-weight: 300; margin: 0; color: #111111;">{{ tenants_count if tenants_count else '0' }} Profiles</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background: linear-gradient(135deg, #111111 0%, #222222 100%); padding: 32px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <p style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ba9e47; margin: 0 0 12px 0;">FINANCIAL REVENUE</p>
+                    <h3 style="font-size: 28px; font-weight: 300; margin: 0; color: #ffffff;">SYSTEM SECURE</h3>
+                </div>
+            </div>
         </div>
+
+        <div style="background: #ffffff; padding: 40px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
+            <h4 style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #111111; margin: 0 0 24px 0;">MODULE ACCESS DIRECTORY</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                <a href="{{ url_for('manage_properties') }}" style="padding: 16px; border: 1px solid #eeeeee; border-radius: 8px; color: #111111; text-decoration: none; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-align: center; background: #fafafa;">PROPERTIES</a>
+                <a href="{{ url_for('manage_units') }}" style="padding: 16px; border: 1px solid #eeeeee; border-radius: 8px; color: #111111; text-decoration: none; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-align: center; background: #fafafa;">UNITS</a>
+                <a href="{{ url_for('manage_tenants') }}" style="padding: 16px; border: 1px solid #eeeeee; border-radius: 8px; color: #111111; text-decoration: none; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-align: center; background: #fafafa;">TENANTS</a>
+                <a href="{{ url_for('manage_leases') }}" style="padding: 16px; border: 1px solid #eeeeee; border-radius: 8px; color: #111111; text-decoration: none; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-align: center; background: #fafafa;">LEASES</a>
+                <a href="{{ url_for('manage_invoices') }}" style="padding: 16px; border: 1px solid #eeeeee; border-radius: 8px; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-align: center; background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%);">INVOICES</a>
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}

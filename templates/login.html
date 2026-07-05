@@ -1,22 +1,73 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row" style="margin-top: 40px;">
-    <div class="col-md-4 col-md-offset-4">
-        <div class="panel-editorial" style="border: 1px solid #111;">
-            <h2 style="font-weight: 300; text-transform: uppercase; letter-spacing: 3px; font-size: 18px; margin-bottom: 30px; text-align: center;">Identification</h2>
-            <form method="POST" action="{{ url_for('login') }}">
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Email Address</label>
-                    <input type="email" name="email" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; height: 40px; box-shadow: none;">
+<div class="container-fluid" style="padding: 0; background: #fafafa; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+
+    <div style="background: #ffffff; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; font-weight: 800; font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">A</div>
+            <div>
+                <span style="color: #111111; font-weight: 800; font-size: 18px; letter-spacing: 3px; display: block; text-transform: uppercase; margin: 0;">ABDIMALIK</span>
+                <span style="color: #ba9e47; font-weight: 700; font-size: 10px; letter-spacing: 2px; display: block; text-transform: uppercase; margin: 0;">RENTAL SYSTEM</span>
+            </div>
+        </div>
+        <div>
+            <a href="{{ url_for('register') }}" style="font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ba9e47; text-decoration: none;">CREATE ACCOUNT</a>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 100px; padding-bottom: 80px;">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4" style="float: none; margin: 0 auto;">
+                
+                <div style="background: #ffffff; padding: 40px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 10px 40px rgba(0,0,0,0.04);">
+                    
+                    <div class="text-center" style="margin-bottom: 32px;">
+                        <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: #ba9e47; margin-bottom: 8px; font-weight: 700;">SECURITY CLEARANCE</p>
+                        <h2 style="font-size: 22px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin: 0; color: #111111;">SYSTEM PORTAL</h2>
+                        <div style="width: 30px; height: 2px; background: #ba9e47; margin: 14px auto 0 auto;"></div>
+                    </div>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, msg in messages %}
+                                <div style="padding: 12px 14px; margin-bottom: 20px; border-radius: 6px; font-size: 13px; font-weight: 300; background: #fdf2f2; color: #ec5b5b; border: 1px solid #fbd5d5;">
+                                    {{ msg }}
+                               </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" action="{{ url_for('login') }}">
+                        
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ba9e47; margin-bottom: 8px;">ACCOUNT USERNAME</label>
+                            <input type="text" name="username" required placeholder="Enter unique user identifier" 
+                                style="width: 100%; padding: 12px 16px; background: #fafafa; border: 1px solid #e2e2e2; border-radius: 6px; font-size: 13px; color: #111111; outline: none;">
+                        </div>
+
+                        <div style="margin-bottom: 32px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ba9e47; margin-bottom: 8px;">SECURE PASS CODE</label>
+                            <input type="password" name="password" required placeholder="••••••••••••" 
+                                style="width: 100%; padding: 12px 16px; background: #fafafa; border: 1px solid #e2e2e2; border-radius: 6px; font-size: 13px; color: #111111; outline: none;">
+                        </div>
+
+                        <button type="submit" 
+                            style="width: 100%; padding: 14px; background: linear-gradient(135deg, #111111 0%, #333333 100%); color: #ffffff; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); outline: none;">
+                            GRANT PORTAL ACCESS
+                        </button>
+
+                    </form>
+
+                    <div style="width: 100%; height: 1px; background: #eeeeee; margin: 24px 0;"></div>
+                    <div class="text-center">
+                        <p style="font-size: 12px; color: #777777; margin: 0; font-weight: 300;">
+                            New system operative? 
+                            <a href="{{ url_for('register') }}" style="color: #ba9e47; font-weight: 700; text-decoration: none; margin-left: 4px;">Register here</a>
+                        </p>
+                    </div>
+
                 </div>
-                <div class="form-group" style="margin-bottom: 30px;">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Password Key</label>
-                    <input type="password" name="password" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; height: 40px; box-shadow: none;">
-                </div>
-                <button type="submit" class="btn" style="background: #000; color: #fff; width: 100%; border-radius: 0; height: 45px; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700;">Authorize Access</button>
-            </form>
-            <div style="text-align: center; margin-top: 15px;">
-                <a href="{{ url_for('register') }}" style="font-size: 10px; text-transform: uppercase; color: #777; letter-spacing: 1px;">Create Account</a>
+
             </div>
         </div>
     </div>

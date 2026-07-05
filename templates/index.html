@@ -1,182 +1,864 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="container-fluid" style="padding: 0; background: #ffffff; color: #111111; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- BRAND LOGO HEADER -->
-    <div style="background: #ffffff; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
-        <!-- Premium Custom Emblem Logo -->
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; font-weight: 800; font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(186,158,71,0.3);">
-                A
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdimalik Rental Management System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f8f9fa;
+            color: #222;
+        }
+
+        .navbar-custom {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .05);
+            padding: 15px 0;
+        }
+
+        .brand-logo {
+            width: 45px;
+            height: 45px;
+            background: #ba9e47;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+
+        .hero {
+            background:
+                linear-gradient(rgba(0, 0, 0, .65),
+                    rgba(0, 0, 0, .65)),
+                url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1400&q=80');
+
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .gold {
+            color: #ba9e47;
+        }
+
+        .section-title {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        .stats {
+            background: #111;
+            padding: 80px 0;
+            color: white;
+        }
+
+        .stat-box h2 {
+            font-size: 50px;
+            color: #ba9e47;
+            font-weight: 700;
+        }
+
+        .stat-box p {
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .property-card {
+            background: white;
+            border: none;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+            transition: .3s;
+            height: 100%;
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .property-card img {
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .service-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .06);
+            height: 100%;
+        }
+
+        .service-box i {
+            font-size: 45px;
+            color: #ba9e47;
+            margin-bottom: 20px;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+        }
+
+        .cta {
+            background: #ba9e47;
+            color: white;
+            padding: 90px 0;
+            text-align: center;
+        }
+
+        footer {
+            background: #111;
+            color: white;
+            padding: 70px 0 30px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 22px;
+            margin: 0 10px;
+        }
+
+        .social-icons a:hover {
+            color: #ba9e47;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+
+            <div class="d-flex align-items-center">
+
+                <div class="brand-logo">
+                    A
+                </div>
+
+                <div class="ms-3">
+
+                    <h5 class="mb-0 fw-bold">
+                        ABDIMALIK
+                    </h5>
+
+                    <small class="gold">
+                        RENTAL MANAGEMENT
+                    </small>
+
+                </div>
+
             </div>
+
             <div>
-                <span style="color: #111111; font-weight: 800; font-size: 18px; letter-spacing: 3px; display: block; text-transform: uppercase; margin: 0;">ABDIMALIK</span>
-                <span style="color: #ba9e47; font-weight: 700; font-size: 10px; letter-spacing: 2px; display: block; text-transform: uppercase; margin: 0;">RENTAL SYSTEM</span>
+
+                <a href="/login" class="btn btn-warning me-2">
+                    Login
+                </a>
+
+                <a href="/register" class="btn btn-dark">
+                    Register
+                </a>
+
             </div>
+
         </div>
-        <div style="font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ba9e47; background: rgba(186,158,71,0.1); padding: 6px 14px; border-radius: 20px;">
-            ENTERPRISE PLATFORM
-        </div>
-    </div>
+    </nav>
 
-    <!-- MODERN HERO OVERVIEW -->
-    <div class="text-center" style="background: #fafafa; padding: 120px 20px 80px 20px; border-bottom: 1px solid #eeeeee;">
-        <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 4px; color: #ba9e47; margin-bottom: 12px; font-weight: 700;">
-            INTERNAL PROPERTY MANAGEMENT ENVIRONMENT
-        </p>
-        <h1 style="font-size: 40px; font-weight: 300; text-transform: uppercase; letter-spacing: 8px; margin: 0 0 20px 0; color: #111111;">
-            CORE OPERATIONS HUB
-        </h1>
-        <div style="width: 40px; height: 2px; background: #ba9e47; margin: 20px auto;"></div>
-        
-        <p style="font-size: 14px; font-weight: 300; letter-spacing: 1px; color: #444444; max-width: 700px; margin: 0 auto; line-height: 2.2;">
-            Welcome to a premium architectural gateway designed for high-end asset tracking and structured property management. This platform delivers a comprehensive relational ecosystem, seamlessly bridging the gap between property investors, structural door units, and real-time ledger accounting.
-        </p>
-    </div>
+    <section class="hero">
 
-    <!-- VIBRANT REAL ESTATE PROPERTY SHOWCASE -->
-    <div class="container" style="margin-top: 80px; padding-bottom: 80px;">
-        <div class="row" style="margin-bottom: 48px; text-align: center;">
-            <div class="col-md-12">
-                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #ba9e47; margin: 0; font-weight: 700;">MANAGED PORTFOLIO</p>
-                <h2 style="font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin: 8px 0 0 0; color: #111111;">
-                    PREMIUM DEVELOPMENTS
-                </h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Property Card 1 -->
-            <div class="col-md-4" style="margin-bottom: 40px;">
-                <div style="background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eeeeee;">
-                    <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=600&q=80" alt="Luxe Estate" class="img-responsive" style="width: 100%; height: 240px; object-fit: cover;">
-                    <div style="padding: 24px;">
-                        <p style="font-size: 10px; letter-spacing: 2px; color: #ba9e47; margin: 0 0 8px 0; text-transform: uppercase; font-weight: 700;">Nairobi Center</p>
-                        <h4 style="font-size: 14px; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 12px 0; color: #111111; text-transform: uppercase;">THE LUXE CORPORATE TOWER</h4>
-                        <p style="font-size: 12px; color: #777777; font-weight: 300; line-height: 1.8; margin: 0;">High-density corporate developments featuring modern workspace engineering and premier security architecture.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Property Card 2 -->
-            <div class="col-md-4" style="margin-bottom: 40px;">
-                <div style="background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eeeeee;">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="Luxury Apartments" class="img-responsive" style="width: 100%; height: 240px; object-fit: cover;">
-                    <div style="padding: 24px;">
-                        <p style="font-size: 10px; letter-spacing: 2px; color: #ba9e47; margin: 0 0 8px 0; text-transform: uppercase; font-weight: 700;">Westlands Hub</p>
-                        <h4 style="font-size: 14px; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 12px 0; color: #111111; text-transform: uppercase;">WESTLANDS URBAN SUITES</h4>
-                        <p style="font-size: 12px; color: #777777; font-weight: 300; line-height: 1.8; margin: 0;">Premium high-rise residential layouts built for contemporary comfort and elegant structural styling.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property Card 3 -->
-            <div class="col-md-4" style="margin-bottom: 40px;">
-                <div style="background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eeeeee;">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="Commercial Property" class="img-responsive" style="width: 100%; height: 240px; object-fit: cover;">
-                    <div style="padding: 24px;">
-                        <p style="font-size: 10px; letter-spacing: 2px; color: #ba9e47; margin: 0 0 8px 0; text-transform: uppercase; font-weight: 700;">Global Markets</p>
-                        <h4 style="font-size: 14px; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 12px 0; color: #111111; text-transform: uppercase;">PREMIUM BUSINESS HUBS</h4>
-                        <p style="font-size: 12px; color: #777777; font-weight: 300; line-height: 1.8; margin: 0;">Cross-border multi-tenant complexes integrating digital reporting arrays with dynamic investment tracking.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- GEOGRAPHICAL LOCATIONS DIRECTORY -->
-    <div style="background: #fafafa; padding: 80px 0; border-top: 1px solid #eeeeee; border-bottom: 1px solid #eeeeee;">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4" style="margin-bottom: 30px;">
-                    <div style="background: #ffffff; padding: 32px; border-radius: 8px; border: 1px solid #eeeeee; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-                        <h4 style="color: #111111; font-weight: 800; letter-spacing: 1px; font-size: 14px; text-transform: uppercase; margin: 0 0 12px 0;">NAIROBI CBD NODE</h4>
-                        <p style="color: #666666; font-size: 13px; font-weight: 300; line-height: 1.8; margin: 0;">Strategic administrative infrastructure handling major commercial units and cash flows.</p>
-                    </div>
-                </div>
-                <div class="col-md-4" style="margin-bottom: 30px;">
-                    <div style="background: #ffffff; padding: 32px; border-radius: 8px; border: 1px solid #eeeeee; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-                        <h4 style="color: #ba9e47; font-weight: 800; letter-spacing: 1px; font-size: 14px; text-transform: uppercase; margin: 0 0 12px 0;">WESTLANDS REGION</h4>
-                        <p style="color: #666666; font-size: 13px; font-weight: 300; line-height: 1.8; margin: 0;">High-end luxury apartments with custom utility meters and real-time maintenance pipelines.</p>
-                    </div>
-                </div>
-                <div class="col-md-4" style="margin-bottom: 30px;">
-                    <div style="background: #ffffff; padding: 32px; border-radius: 8px; border: 1px solid #eeeeee; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-                        <h4 style="color: #111111; font-weight: 800; letter-spacing: 1px; font-size: 14px; text-transform: uppercase; margin: 0 0 12px 0;">GLOBAL SECTOR</h4>
-                        <p style="color: #666666; font-size: 13px; font-weight: 300; line-height: 1.8; margin: 0;">Expanding secure ledger reporting pipelines directly into international software architecture spaces.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- LIGHT LUXURY FOOTER WITH SOCIAL MEDIA ICONS -->
-    <div style="background: #ffffff; color: #111111; padding: 80px 40px;">
+            <h1>
+                Abdimalik Rental Management System
+            </h1>
+
+            <p>
+                Manage properties, tenants, payments, leases and maintenance requests from one powerful platform.
+            </p>
+
+            <div class="mt-4">
+
+                <a href="/register" class="btn btn-warning btn-lg me-2">
+                    Get Started
+                </a>
+
+                <a href="#properties" class="btn btn-outline-light btn-lg">
+                    View Properties
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="stats">
+
         <div class="container">
+
+            <div class="row text-center">
+
+                <div class="col-md-3 stat-box">
+                    <h2>150+</h2>
+                    <p>Properties</p>
+                </div>
+
+                <div class="col-md-3 stat-box">
+                    <h2>800+</h2>
+                    <p>Tenants</p>
+                </div>
+
+                <div class="col-md-3 stat-box">
+                    <h2>98%</h2>
+                    <p>Occupancy Rate</p>
+                </div>
+
+                <div class="col-md-3 stat-box">
+                    <h2>24/7</h2>
+                    <p>Support</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="properties" class="py-5">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Featured Properties
+            </h2>
+
+            <p class="section-subtitle">
+                Explore premium residential and commercial properties.
+            </p>
+
+            <div class="row g-4">
+
+                <div class="col-lg-4">
+
+                    <div class="property-card">
+
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80"
+                            class="w-100">
+
+                        <div class="p-4">
+
+                            <span class="badge bg-warning text-dark">
+                                Commercial
+                            </span>
+
+                            <h4 class="mt-3">
+                                Corporate Tower
+                            </h4>
+
+                            <p>
+                                Modern office spaces with premium amenities.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+
+                    <div class="property-card">
+
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80"
+                            class="w-100">
+
+                        <div class="p-4">
+
+                            <span class="badge bg-success">
+                                Residential
+                            </span>
+
+                            <h4 class="mt-3">
+                                Westlands Urban Suites
+                            </h4>
+
+                            <p>
+                                Luxury apartments designed for comfort and modern living.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="property-card">
+
+                        <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=700&q=80"
+                            class="w-100">
+
+                        <div class="p-4">
+
+                            <span class="badge bg-primary">
+                                Retail Hub
+                            </span>
+
+                            <h4 class="mt-3">
+                                Business Center
+                            </h4>
+
+                            <p>
+                                Retail and commercial units in prime business locations.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="py-5 bg-light">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Our Services
+            </h2>
+
+            <p class="section-subtitle">
+                Everything you need to manage rental properties efficiently.
+            </p>
+
+            <div class="row g-4">
+
+                <div class="col-md-3">
+
+                    <div class="service-box">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        <h5>
+                            Property Management
+                        </h5>
+
+                        <p>
+                            Manage buildings, houses and apartments with ease.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="service-box">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        <h5>
+                            Tenant Management
+                        </h5>
+
+                        <p>
+                            Track tenant information and lease agreements.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="service-box">
+
+                        <i class="fa-solid fa-money-bill-wave"></i>
+
+                        <h5>
+                            Rent Collection
+                        </h5>
+
+                        <p>
+                            Monitor payments, balances and financial records.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="service-box">
+
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                        <h5>
+                            Maintenance
+                        </h5>
+
+                        <p>
+                            Handle repair requests and maintenance schedules.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="py-5">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Why Choose Us
+            </h2>
+
+            <p class="section-subtitle">
+                Professional rental management solutions.
+            </p>
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+
+                    <div class="service-box">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <h5>
+                            Secure Platform
+                        </h5>
+
+                        <p>
+                            Advanced security features protect your property data.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="service-box">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        <h5>
+                            Financial Reports
+                        </h5>
+
+                        <p>
+                            Generate reports and monitor revenue performance.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="service-box">
+
+                        <i class="fa-solid fa-headset"></i>
+
+                        <h5>
+                            24/7 Support
+                        </h5>
+
+                        <p>
+                            Dedicated assistance whenever you need help.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <section class="py-5 bg-light">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Client Testimonials
+            </h2>
+
+            <p class="section-subtitle">
+                What our clients say about us.
+            </p>
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+
+                    <div class="testimonial">
+
+                        <h5 class="gold">
+                            Property Owner
+                        </h5>
+
+                        <p>
+                            "Abdimalik Rental Management has completely transformed the way I manage my properties.
+                            Everything is organized and efficient."
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="testimonial">
+
+                        <h5 class="gold">
+                            Landlord
+                        </h5>
+
+                        <p>
+                            "The payment tracking and tenant management tools save me hours every month."
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="testimonial">
+
+                        <h5 class="gold">
+                            Tenant
+                        </h5>
+
+                        <p>
+                            "Maintenance requests are handled quickly and communication is excellent."
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="py-5">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Our Location
+            </h2>
+
+            <p class="section-subtitle">
+                Visit our offices in Nairobi, Kenya.
+            </p>
+
             <div class="row">
-                <!-- Branding Context -->
-                <div class="col-md-4" style="margin-bottom: 40px;">
-                    <p style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #111111; margin-bottom: 12px;">
-                        ARS ARCHITECTURE
+
+                <div class="col-lg-5">
+
+                    <h4 class="mb-4">
+                        Abdimalik Rental Management
+                    </h4>
+
+                    <p>
+                        <i class="fa-solid fa-location-dot gold me-2"></i>
+                        Westlands, Nairobi, Kenya
                     </p>
-                    <p style="font-size: 13px; font-weight: 300; color: #666666; line-height: 1.8; margin: 0;">
-                        A highly sophisticated interface developed for elite asset oversight and absolute financial integrity.
+
+                    <p>
+                        <i class="fa-solid fa-phone gold me-2"></i>
+                        +254 700 000 000
                     </p>
+
+                    <p>
+                        <i class="fa-solid fa-envelope gold me-2"></i>
+                        info@abdimalikrental.com
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-clock gold me-2"></i>
+                        Monday - Saturday: 8:00 AM - 6:00 PM
+                    </p>
+
                 </div>
 
-                <!-- Contact Points -->
-                <div class="col-md-4" style="margin-bottom: 40px; padding-left: 20px;">
-                    <p style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; color: #ba9e47;">
-                        COMMUNICATION CHANNELS
-                    </p>
-                    <p style="font-size: 13px; font-weight: 400; color: #111111; margin: 0 0 8px 0; letter-spacing: 0.5px;">
-                        Email: info@abdimalikrental.com
-                    </p>
-                    <p style="font-size: 13px; font-weight: 400; color: #111111; margin: 0; letter-spacing: 0.5px;">
-                        HQ: Corporate Suite 4, Nairobi
-                    </p>
+                <div class="col-lg-7">
+
+                    <iframe src="https://www.google.com/maps?q=Westlands,Nairobi&output=embed" width="100%" height="400"
+                        style="border:0;border-radius:12px;" allowfullscreen="" loading="lazy">
+                    </iframe>
+
                 </div>
 
-                <!-- Custom Inline SVG Social Media Circles -->
-                <div class="col-md-4" style="margin-bottom: 40px;">
-                    <p style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; color: #ba9e47;">
-                        CONNECT NETWORKS
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="py-5 bg-light">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Contact Us
+            </h2>
+
+            <p class="section-subtitle">
+                Send us a message today.
+            </p>
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-8">
+
+                    <form>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <input type="text" class="form-control" placeholder="Full Name">
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <input type="email" class="form-control" placeholder="Email Address">
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <input type="text" class="form-control" placeholder="Subject">
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-warning btn-lg">
+
+                            Send Message
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="cta">
+
+        <div class="container">
+
+            <h2>
+                Ready To Manage Your Properties Professionally?
+            </h2>
+
+            <p class="mt-3">
+                Join hundreds of property owners using our system.
+            </p>
+
+            <a href="/register" class="btn btn-dark btn-lg mt-3">
+
+                Get Started Today
+
+            </a>
+
+        </div>
+
+    </section>
+    <footer>
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-4 mb-4">
+
+                    <h4>
+                        ABDIMALIK RENTAL
+                    </h4>
+
+                    <p class="mt-3">
+                        A complete rental management platform designed to help landlords, property managers and tenants
+                        manage properties efficiently.
                     </p>
-                    <div style="display: flex; gap: 14px; align-items: center;">
-                        
-                        <!-- WhatsApp Link Ring -->
-                        <a href="#" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #ffffff; border: 1px solid #dddddd; border-radius: 50%; color: #128c7e; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" title="WhatsApp">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+
+                </div>
+
+                <div class="col-lg-4 mb-4">
+
+                    <h5>
+                        Quick Links
+                    </h5>
+
+                    <ul class="list-unstyled mt-3">
+
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#properties" class="text-white text-decoration-none">
+                                Properties
+                            </a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                Services
+                            </a>
+                        </li>
+
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                Contact
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-4 mb-4">
+
+                    <h5>
+                        Follow Us
+                    </h5>
+
+                    <div class="social-icons mt-3">
+
+                        <a href="#">
+                            <i class="fa-brands fa-facebook-f"></i>
                         </a>
 
-                        <!-- Facebook Link Ring -->
-                        <a href="#" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #ffffff; border: 1px solid #dddddd; border-radius: 50%; color: #3b5998; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" title="Facebook">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        <a href="#">
+                            <i class="fa-brands fa-instagram"></i>
                         </a>
 
-                        <!-- Instagram Link Ring -->
-                        <a href="#" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #ffffff; border: 1px solid #dddddd; border-radius: 50%; color: #e1306c; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" title="Instagram">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        <a href="#">
+                            <i class="fa-brands fa-x-twitter"></i>
                         </a>
 
-                        <!-- X Link Ring -->
-                        <a href="#" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #ffffff; border: 1px solid #dddddd; border-radius: 50%; color: #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.05);" title="X Platform">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768"/><path d="M20 4l-6.768 6.768"/></svg>
+                        <a href="#">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa-brands fa-youtube"></i>
                         </a>
 
                     </div>
-                </div>
-            </div>
-            
-            <div class="row" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #eeeeee;">
-                <div class="col-md-12 text-center">
-                    <p style="font-size: 11px; color: #999999; margin: 0; letter-spacing: 1px; text-transform: uppercase;">
-                        © 2026 ARS ENGINE. ALL RIGHTS RESERVED.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-</div>
-{% endblock %}
+                    <p class="mt-4">
+                        <i class="fa-solid fa-envelope me-2"></i>
+                        info@abdimalikrental.com
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-phone me-2"></i>
+                        +254 700 000 000
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="text-center">
+
+                <p class="mb-0">
+                    © 2026 Abdimalik Rental Management System. All Rights Reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

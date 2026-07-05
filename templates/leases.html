@@ -1,87 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel-editorial" style="border: 1px solid #111;">
-            <h3 style="font-weight: 300; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 20px;">Issue Lease Protocol</h3>
-            <form method="POST" action="{{ url_for('manage_leases') }}">
-                <div class="form-group">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Occupant Target</label>
-                    <select name="tenant_id" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; height: 34px;">
-                        <option value="">-- Choose Tenant --</option>
-                        {% for t in tenants %}
-                        <option value="{{ t.tenant_id }}">{{ t.full_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Target Space Allotment</label>
-                    <select name="unit_id" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; height: 34px;">
-                        <option value="">-- Choose Vacant Unit --</option>
-                        {% for u in units %}
-                        <option value="{{ u.unit_id }}">Unit Door {{ u.unit_number }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Commencement Date</label>
-                    <input type="date" name="start_date" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
-                </div>
-                <div class="form-group">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Termination Date</label>
-                    <input type="date" name="end_date" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
-                </div>
-                <div class="form-group">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Escrow Deposit Escrow (KES)</label>
-                    <input type="text" name="deposit_amount" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
-                </div>
-                <div class="form-group">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Agreed Monthly Base Rent (KES)</label>
-                    <input type="text" name="monthly_rent" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none;">
-                </div>
-                <div class="form-group">
-                    <label style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #777;">Operational Status</label>
-                    <select name="status" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; height: 34px;">
-                        <option value="Active">Active</option>
-                        <option value="Terminated">Terminated</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn" style="background: #000; color: #fff; width: 100%; border-radius: 0; text-transform: uppercase; letter-spacing: 1px; font-size: 10px; font-weight: 700; padding: 10px;">Bind Agreement</button>
-            </form>
+<div class="container-fluid" style="padding: 0; background: #fafafa; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    
+    <div style="background: #ffffff; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; font-weight: 800; font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">A</div>
+            <div>
+                <span style="color: #111111; font-weight: 800; font-size: 18px; letter-spacing: 3px; display: block; text-transform: uppercase; margin: 0;">ABDIMALIK</span>
+                <span style="color: #ba9e47; font-weight: 700; font-size: 10px; letter-spacing: 2px; display: block; text-transform: uppercase; margin: 0;">RENTAL SYSTEM</span>
+            </div>
         </div>
+        <span style="font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ba9e47; background: rgba(186,158,71,0.1); padding: 6px 14px; border-radius: 20px;">CONTRACT ARCHIVE</span>
     </div>
 
-    <div class="col-md-8">
-        <div class="panel-editorial">
-            <h3 style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 20px; color: #000;">Active Agreement Database</h3>
-            <table class="table table-editorial">
-                <thead>
-                    <tr>
-                        <th>Lease ID</th>
-                        <th>Tenant Target</th>
-                        <th>Door</th>
-                        <th>Duration Period</th>
-                        <th>Monthly Terms</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for lease in leases %}
-                    <tr>
-                        <td><span style="font-family: monospace; background: #eee; padding: 2px 6px;">#{{ lease.lease_id }}</span></td>
-                        <td><strong>{{ lease.tenant_name }}</strong></td>
-                        <td>{{ lease.unit_number }}</td>
-                        <td style="font-size: 11px; color: #555;">{{ lease.start_date }} to {{ lease.end_date }}</td>
-                        <td><strong>KES {{ lease.monthly_rent }}</strong></td>
-                        <td><span class="label" style="background: #000; border-radius: 0; text-transform: uppercase; font-weight: normal; font-size: 9px; letter-spacing: 0.5px;">{{ lease.status }}</span></td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="6" class="text-center" style="color: #777; padding: 20px; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;">No active legal leases processed.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <div class="container" style="margin-top: 40px; padding-bottom: 60px;">
+        <div class="row">
+            <div class="col-md-8">
+                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #ba9e47; margin: 0; font-weight: 700;">AGREEMENTS</p>
+                <h2 style="font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin: 4px 0 24px 0; color: #111111;">ACTIVE LEASES</h2>
+                
+                <div style="background: #ffffff; border: 1px solid #eeeeee; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                    <table class="table" style="margin: 0; font-size: 13px;">
+                        <thead>
+                            <tr style="background: #fafafa; color: #111111; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+                                <th style="padding: 16px;">LEASE ID</th>
+                                <th style="padding: 16px;">TENANT</th>
+                                <th style="padding: 16px;">UNIT DOOR</th>
+                                <th style="padding: 16px;">START BOUNDS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if leases %}
+                                {% for lease in leases %}
+                                <tr>
+                                    <td style="padding: 16px; color: #ba9e47; font-weight: 700;">#{{ lease.id }}</td>
+                                    <td style="padding: 16px; font-weight: 400;">{{ lease.tenant_name }}</td>
+                                    <td style="padding: 16px; font-weight: 800; color: #111111;">{{ lease.unit_number }}</td>
+                                    <td style="padding: 16px; color: #777777;">{{ lease.start_date }}</td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr><td colspan="4" style="padding: 40px; text-align: center; color: #999999; font-weight: 300;">No active binding lease contracts on network.</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div style="background: #ffffff; padding: 32px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                    <h3 style="font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 20px 0; color: #111111;">BIND NEW LEASE</h3>
+                    <form method="POST" action="{{ url_for('manage_leases') }}">
+                        <div style="margin-bottom: 18px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">SELECT PROFILE TENANT</label>
+                            <select name="tenant_id" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px;">
+                                <option value="">-- Choose Profile --</option>
+                                {% if tenants %}
+                                    {% for t in tenants %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 18px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">TARGET ROOM DOOR</label>
+                            <select name="unit_id" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px;">
+                                <option value="">-- Choose Room Code --</option>
+                                {% if units %}
+                                    {% for u in units %}
+                                        <option value="{{ u.id }}">{{ u.unit_number }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">START COMMENCEMENT DATE</label>
+                            <input type="date" name="start_date" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px; outline: none;">
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 14px; background: #111111; color: #ffffff; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;">AUTHORIZE CONTRACT BOUNDS</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

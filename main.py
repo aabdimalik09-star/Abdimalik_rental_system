@@ -14,26 +14,34 @@ def index():
 
 
 # --- AUTHENTICATION LAYER ---
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # If a user is already logged in, take them straight to properties
+    if 'user_id' in session:
+        return redirect(url_for('manage_properties'))
+
     if request.method == 'POST':
-        user_email = request.form.get('email')
-        user_pwd = request.form.get('password')
-        
-        query = "SELECT user_id, full_name, password FROM users WHERE email = %s;"
+        # Safely read what the user typed into the form fields
+        email_input = request.form.get('username') or request.form.get('email')
+        password_input = request.form.get('password')
+
         with get_db_cursor() as cur:
-            cur.execute(query, (user_email,))
-            account = cur.fetchone()
-            
-        if account and account['password'] == user_pwd:
-            session['user_id'] = account['user_id']
-            session['user_name'] = account['full_name']
-            flash('Login confirmed.')
-            return redirect(url_for('dashboard'))
-        else:
-            flash('Invalid user credentials.')
-            
+            # Query using exact columns from your users table schema
+            cur.execute("SELECT user_id, email, password FROM users WHERE email = %s", (email_input,))
+            user = cur.fetchone()
+
+            # Using string keys ('password', 'user_id') to prevent KeyError 2
+            if user and str(user['password']).strip() == str(password_input).strip():
+                session['user_id'] = user['user_id']  
+                flash('Portal authorization granted.')
+                return redirect(url_for('manage_properties'))
+            else:
+                flash('Access Denied: Invalid Username or Password.')
+                return redirect(url_for('login'))
+
     return render_template('login.html')
+
 
 @app.route('/logout')
 def logout():
@@ -99,38 +107,37 @@ def manage_landlords():
 
 
 # --- 2. PROPERTIES ---
+
 @app.route('/properties', methods=['GET', 'POST'])
 def manage_properties():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-        
+
     if request.method == 'POST':
+        # Grab data from the HTML form fields
         name = request.form.get('property_name')
-        p_type = request.form.get('property_type')
-        addr = request.form.get('address')
-        desc = request.form.get('description')
-        landlord = request.form.get('landlord_id')
-        
+        location = request.form.get('location_district')
+        category = request.form.get('property_category')
+        # Using a dummy or default landlord_id (e.g., 1) if not selected yet to prevent NOT NULL errors
+        landlord_id = request.form.get('landlord_id', 1) 
+
         with get_db_cursor(commit=True) as cur:
-            cur.execute(
-                "INSERT INTO properties (property_name, property_type, address, description, landlord_id) VALUES (%s, %s, %s, %s, %s);",
-                (name, p_type, addr, desc, int(landlord))
-            )
-        flash('Property assets saved.')
+            # Matches your exact columns: landlord_id, property_name, property_type, address
+            cur.execute("""
+                INSERT INTO properties (landlord_id, property_name, property_type, address, description) 
+                VALUES (%s, %s, %s, %s, %s)
+            """, (int(landlord_id), name, category, location, ""))
+            
+        flash('Property asset registered successfully.')
         return redirect(url_for('manage_properties'))
-        
+
     with get_db_cursor() as cur:
-        cur.execute("""
-            SELECT p.*, l.full_name as landlord_name 
-            FROM properties p 
-            JOIN landlords l ON p.landlord_id = l.landlord_id ORDER BY p.property_id DESC;
-        """)
-        dataset = cur.fetchall()
-        cur.execute("SELECT landlord_id, full_name FROM landlords;")
-        landlords_dropdown = cur.fetchall()
-    return render_template('properties.html', properties=dataset, landlords=landlords_dropdown)
+        # Fetching using the exact columns from your schema
+        cur.execute("SELECT property_id, property_name, address, property_type FROM properties ORDER BY property_id DESC")
+        properties_dataset = cur.fetchall()
 
-
+        return render_template('properties.html', properties=properties_dataset)
+           
 # --- 3. UNITS ---
 @app.route('/units', methods=['GET', 'POST'])
 def manage_units():
@@ -284,20 +291,107 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/invoices', methods=['GET', 'POST'])
-def manage_invoices():
-    # Your logic here
-    return render_template('invoices.html')
 
 @app.route('/maintenance', methods=['GET', 'POST'])
 def manage_maintenance():
-    # Your logic here
-    return render_template('maintenance.html')
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        unit_id = request.form.get('unit_id')
+        description = request.form.get('description')
+        urgency = request.form.get('urgency_level')
+
+        with get_db_cursor(commit=True) as cur:
+            cur.execute("""
+                INSERT INTO maintenance_requests (unit_id, description, urgency, status) 
+                VALUES (%s, %s, %s, %s)
+            """, (int(unit_id), description, urgency, 'PENDING'))
+            
+        flash('Maintenance ticket safely registered in work cycle.')
+        return redirect(url_for('manage_maintenance'))
+
+    with get_db_cursor() as cur:
+        # Corrected joins to use unit_id and property_id
+        cur.execute("""
+            SELECT m.*, u.unit_number, p.property_name 
+            FROM maintenance_requests m
+            JOIN units u ON m.unit_id = u.unit_id
+            JOIN properties p ON u.property_id = p.property_id
+        """)
+        tickets = cur.fetchall()
+
+        cur.execute("""
+            SELECT u.unit_id, u.unit_number, p.property_name 
+            FROM units u
+            JOIN properties p ON u.property_id = p.property_id
+        """)
+        available_units = cur.fetchall()
+
+        return render_template('maintenance.html', tickets=tickets, units=available_units)
+    
+
+@app.route('/invoices', methods=['GET', 'POST'])
+def manage_invoices():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        lease_id = request.form.get('lease_id')
+        issue_date = request.form.get('issue_date')
+        due_date = request.form.get('due_date')
+        amount_due = request.form.get('amount_due')
+        status = request.form.get('status')
+
+        with get_db_cursor(commit=True) as cur:
+            cur.execute("""
+                INSERT INTO invoices (lease_id, issue_date, due_date, amount_due, status) 
+                VALUES (%s, %s, %s, %s, %s)
+            """, (int(lease_id), issue_date, due_date, float(amount_due), status))
+            
+        flash('Invoice successfully generated.')
+        return redirect(url_for('manage_invoices'))
+
+    with get_db_cursor() as cur:
+        # Fetching invoices to display in the table
+        cur.execute("SELECT invoice_id, lease_id, issue_date, due_date, amount_due, status FROM invoices ORDER BY invoice_id DESC")
+        invoice_dataset = cur.fetchall()
+
+        # Optional: Fetch active leases to populate a dropdown selector in your form
+        cur.execute("SELECT lease_id FROM leases")
+        active_leases = cur.fetchall()
+
+        return render_template('invoices.html', invoices=invoice_dataset, leases=active_leases)
+
+    
 
 @app.route('/employees', methods=['GET', 'POST'])
 def manage_employees():
-    # Your logic here
-    return render_template('employees.html')
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        full_name = request.form.get('employee_name')
+        role = request.form.get('operational_role')
+        email = request.form.get('employee_email')
+        phone = request.form.get('contact_phone')
+
+        with get_db_cursor(commit=True) as cur:
+            # Matches your exact database columns from 71716.jpg
+            cur.execute("""
+                INSERT INTO employees (full_name, role, email, phone) 
+                VALUES (%s, %s, %s, %s)
+            """, (full_name, role, email, phone))
+            
+        flash('Employee profile registered in administration roster.')
+        return redirect(url_for('manage_employees'))
+
+    with get_db_cursor() as cur:
+        # Fixed query to only select columns that actually exist
+        cur.execute("SELECT employee_id, full_name, role, email, phone FROM employees")
+        workforce_dataset = cur.fetchall()
+
+        return render_template('employees.html', employees=workforce_dataset)
 
 
 

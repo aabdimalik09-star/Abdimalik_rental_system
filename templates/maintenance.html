@@ -1,90 +1,94 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container" style="margin-top: 40px; margin-bottom: 80px;">
+<div class="container-fluid" style="padding: 0; background: #fafafa; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
     
-    <!-- Header Section -->
-    <div class="row" style="margin-bottom: 40px;">
-        <div class="col-md-12">
-            <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #777; margin-bottom: 5px;">
-                Operations Ledger
-            </p>
-            <h2 style="font-size: 28px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin-top: 0; color: #000;">
-                Maintenance Orders
-            </h2>
-            <div style="width: 30px; height: 1px; background: #000; margin-top: 15px;"></div>
+    <!-- TOP BAR -->
+    <div style="background: #ffffff; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; font-weight: 800; font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">A</div>
+            <div>
+                <span style="color: #111111; font-weight: 800; font-size: 18px; letter-spacing: 3px; display: block; text-transform: uppercase; margin: 0;">ABDIMALIK</span>
+                <span style="color: #ba9e47; font-weight: 700; font-size: 10px; letter-spacing: 2px; display: block; text-transform: uppercase; margin: 0;">RENTAL SYSTEM</span>
+            </div>
         </div>
+        <span style="font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ba9e47; background: rgba(186,158,71,0.1); padding: 4px 14px; border-radius: 20px;">MAINTENANCE TICKETS</span>
     </div>
 
-    <!-- Interaction Grid -->
-    <div class="row">
-        <!-- Data Table -->
-        <div class="col-md-8">
-            <div style="border-top: 1px solid #000; padding-top: 10px; margin-bottom: 30px;">
-                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #000;">
-                    Active Structural Support Tasks
-                </p>
-            </div>
+    <div class="container" style="margin-top: 40px; padding-bottom: 40px;">
+        <div class="row">
             
-            <table class="table" style="font-size: 12px; font-weight: 300; letter-spacing: 0.5px;">
-                <thead>
-                    <tr style="text-transform: uppercase; font-size: 10px; letter-spacing: 2px; border-bottom: 2px solid #000;">
-                        <th style="padding: 12px 0; border: none;">Unit Target</th>
-                        <th style="padding: 12px 0; border: none;">Task Summary</th>
-                        <th style="padding: 12px 0; border: none; text-align: right;">Urgency Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in maintenance %}
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 15px 0; font-weight: 700; text-transform: uppercase; border: none;">
-                            Unit ID: {{ item.unit_id }}
-                        </td>
-                        <td style="padding: 15px 0; color: #444; border: none;">
-                            {{ item.description }}
-                        </td>
-                        <td style="padding: 15px 0; text-align: right; border: none; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;">
-                            <span style="font-weight: 700;">{{ item.status }}</span>
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="3" style="padding: 30px 0; text-align: center; color: #999; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; border: none;">
-                            No maintenance requests recorded in system engine.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Registry Form -->
-        <div class="col-md-4">
-            <div style="border-top: 1px solid #000; padding-top: 10px; margin-bottom: 20px;">
-                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #000;">
-                    File Support Order
-                </p>
+            <div class="col-md-8">
+                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #ba9e47; margin: 0; font-weight: 700;">ENGINEERING OPS</p>
+                <h2 style="font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin: 4px 0 24px 0; color: #111111;">JOB PIPELINES</h2>
+                
+                <div style="background: #ffffff; border: 1px solid #eeeeee; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                    <table class="table" style="margin: 0; font-size: 13px;">
+                        <thead>
+                            <tr style="background: #fafafa; color: #111111; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+                                <th style="padding: 16px;">TICKET ID</th>
+                                <th style="padding: 16px;">SUITE PLACE</th>
+                                <th style="padding: 16px;">ISSUE DESCRIPTION</th>
+                                <th style="padding: 16px;">URGENCY</th>
+                                <th style="padding: 16px;">STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if tickets %}
+                                {% for ticket in tickets %}
+                                <tr>
+                                    <td style="padding: 16px; color: #ba9e47; font-weight: 700;">#TCK-{{ ticket.id if ticket.id is defined else ticket[0] }}</td>
+                                    <td style="padding: 16px; font-weight: 800; color: #111111;">
+                                        {{ ticket.property_name if ticket.property_name is defined else ticket[5] }} - Unit {{ ticket.unit_number if ticket.unit_number is defined else ticket[4] }}
+                                    </td>
+                                    <td style="padding: 16px; color: #444444;">{{ ticket.description if ticket.description is defined else ticket[2] }}</td>
+                                    <td style="padding: 16px; text-transform: uppercase; font-size: 11px; font-weight: 700;">{{ ticket.urgency if ticket.urgency is defined else ticket[3] }}</td>
+                                    <td style="padding: 16px;">
+                                        <span style="background: rgba(236,158,71,0.1); color: #ba9e47; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700;">{{ ticket.status if ticket.status is defined else ticket[4] }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr><td colspan="5" style="padding: 40px; text-align: center; color: #999999; font-weight: 300;">No open maintenance requests currently inside systemic queue.</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <form method="POST" action="{{ url_for('manage_maintenance') }}" style="background: #fafafa; padding: 25px; border: 1px solid #eee;">
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #444; font-weight: 400;">Select Unit Structure</label>
-                    <select name="unit_id" class="form-control" required style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; font-size: 12px; height: 40px;">
-                        <option value="">-- Choose Unit --</option>
-                        {% for unit in units %}
-                        <option value="{{ unit.id }}">{{ unit.name }}</option>
-                        {% endfor %}
-                    </select>
+            <div class="col-md-4">
+                <div style="background: #ffffff; padding: 32px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                    <h3 style="font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 20px 0; color: #111111;">FILE ISSUE REQUEST</h3>
+                    <form method="POST" action="{{ url_for('manage_maintenance') }}">
+                        <div style="margin-bottom: 18px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">CHOOSE UNIT DOOR</label>
+                            <select name="unit_id" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px;">
+                                <option value="">-- Select Structural Target --</option>
+                                {% if units %}
+                                    {% for unit in units %}
+                                        <option value="{{ unit[0] if unit[0] is defined else unit.unit_id }}">
+                                            {{ unit[2] if unit[2] is defined else unit.property_name }} - Unit {{ unit[1] if unit[1] is defined else unit.unit_number }}
+                                        </option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 18px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">URGENCY PRIORITY CRITERIA</label>
+                            <select name="urgency_level" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px;">
+                                <option value="low">Low Routine Care</option>
+                                <option value="medium">Medium Intervention</option>
+                                <option value="high">High Immediate Action</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">FAULT DETAILS ANALYSIS</label>
+                            <textarea name="description" required placeholder="Describe system or structural breakdown properties clearly..." style="width: 100%; height: 80px; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px; resize: none; outline: none;"></textarea>
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;">LOG STRUCTURAL ISSUE</button>
+                    </form>
                 </div>
+            </div>
 
-                <div class="form-group" style="margin-bottom: 30px;">
-                    <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #444; font-weight: 400;">Description of Issue</label>
-                    <textarea name="description" class="form-control" required rows="4" style="border-radius: 0; border: 1px solid #ccc; box-shadow: none; font-size: 12px; padding: 10px; resize: none;"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-block" style="background: #000; color: #fff; border-radius: 0; padding: 12px 0; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700; border: 1px solid #000;">
-                    Commit Maintenance Entry
-                </button>
-            </form>
         </div>
     </div>
 
