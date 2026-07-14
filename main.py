@@ -395,8 +395,49 @@ def manage_employees():
 
 
 
+@app.route('/reports')
+def manage_reports():
 
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
 
+    with get_db_cursor() as cur:
+
+        cur.execute("SELECT COUNT(*) AS count FROM properties")
+        total_properties = cur.fetchone()['count']
+
+        cur.execute("SELECT COUNT(*) AS count FROM units")
+        total_units = cur.fetchone()['count']
+
+        cur.execute("SELECT COUNT(*) AS count FROM tenants")
+        total_tenants = cur.fetchone()['count']
+
+        cur.execute("SELECT COUNT(*) AS count FROM leases")
+        total_leases = cur.fetchone()['count']
+
+        cur.execute("SELECT COUNT(*) AS count FROM payments")
+        total_payments = cur.fetchone()['count']
+
+        cur.execute("SELECT COUNT(*) AS count FROM invoices")
+        total_invoices = cur.fetchone()['count']
+
+        cur.execute("SELECT COUNT(*) AS count FROM maintenance_requests")
+        total_requests = cur.fetchone()['count']
+
+        cur.execute("SELECT COUNT(*) AS count FROM employees")
+        total_employees = cur.fetchone()['count']
+
+    return render_template(
+        "reports.html",
+        total_properties=total_properties,
+        total_units=total_units,
+        total_tenants=total_tenants,
+        total_leases=total_leases,
+        total_payments=total_payments,
+        total_invoices=total_invoices,
+        total_requests=total_requests,
+        total_employees=total_employees
+    )
 
 
 if __name__ == '__main__':

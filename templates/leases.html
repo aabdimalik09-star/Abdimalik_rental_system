@@ -1,87 +1,293 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid" style="padding: 0; background: #fafafa; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-    
-    <div style="background: #ffffff; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; font-weight: 800; font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">A</div>
-            <div>
-                <span style="color: #111111; font-weight: 800; font-size: 18px; letter-spacing: 3px; display: block; text-transform: uppercase; margin: 0;">ABDIMALIK</span>
-                <span style="color: #ba9e47; font-weight: 700; font-size: 10px; letter-spacing: 2px; display: block; text-transform: uppercase; margin: 0;">RENTAL SYSTEM</span>
+
+<div class="container-fluid"
+    style="padding:0;background:#fafafa;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+
+    <div
+        style="background:#ffffff;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eeeeee;">
+
+        <div style="display:flex;align-items:center;gap:12px;">
+
+            <div
+                style="background:linear-gradient(135deg,#ba9e47 0%,#ecd078 100%);color:#fff;font-weight:800;font-size:20px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;">
+                A
             </div>
+
+            <div>
+
+                <span
+                    style="color:#111;font-weight:800;font-size:18px;letter-spacing:3px;display:block;text-transform:uppercase;">
+                    ABDIMALIK
+                </span>
+
+                <span
+                    style="color:#ba9e47;font-weight:700;font-size:10px;letter-spacing:2px;display:block;text-transform:uppercase;">
+                    RENTAL SYSTEM
+                </span>
+
+            </div>
+
         </div>
-        <span style="font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ba9e47; background: rgba(186,158,71,0.1); padding: 6px 14px; border-radius: 20px;">CONTRACT ARCHIVE</span>
+
+        <span
+            style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ba9e47;background:rgba(186,158,71,.1);padding:4px 14px;border-radius:20px;">
+            LEASE MANAGEMENT
+        </span>
+
     </div>
 
-    <div class="container" style="margin-top: 40px; padding-bottom: 60px;">
+    <div class="container" style="margin-top:40px;padding-bottom:40px;">
+
         <div class="row">
+
             <div class="col-md-8">
-                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #ba9e47; margin: 0; font-weight: 700;">AGREEMENTS</p>
-                <h2 style="font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin: 4px 0 24px 0; color: #111111;">ACTIVE LEASES</h2>
-                
-                <div style="background: #ffffff; border: 1px solid #eeeeee; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
-                    <table class="table" style="margin: 0; font-size: 13px;">
+
+                <p
+                    style="font-size:11px;text-transform:uppercase;letter-spacing:3px;color:#ba9e47;font-weight:700;margin:0;">
+                    MANAGEMENT
+                </p>
+
+                <h2
+                    style="font-size:24px;font-weight:300;text-transform:uppercase;letter-spacing:4px;margin:4px 0 24px;color:#111;">
+                    LEASE AGREEMENTS
+                </h2>
+
+                <div
+                    style="background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.02);">
+
+                    <table class="table" style="margin:0;font-size:13px;">
+
                         <thead>
-                            <tr style="background: #fafafa; color: #111111; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
-                                <th style="padding: 16px;">LEASE ID</th>
-                                <th style="padding: 16px;">TENANT</th>
-                                <th style="padding: 16px;">UNIT DOOR</th>
-                                <th style="padding: 16px;">START BOUNDS</th>
+
+                            <tr
+                                style="background:#fafafa;color:#111;font-size:10px;letter-spacing:1px;text-transform:uppercase;">
+
+                                <th style="padding:16px;">Lease ID</th>
+
+                                <th style="padding:16px;">Tenant</th>
+
+                                <th style="padding:16px;">Unit</th>
+
+                                <th style="padding:16px;">Rent</th>
+
+                                <th style="padding:16px;">Status</th>
+
                             </tr>
+
                         </thead>
+
                         <tbody>
+
                             {% if leases %}
-                                {% for lease in leases %}
-                                <tr>
-                                    <td style="padding: 16px; color: #ba9e47; font-weight: 700;">#{{ lease.id }}</td>
-                                    <td style="padding: 16px; font-weight: 400;">{{ lease.tenant_name }}</td>
-                                    <td style="padding: 16px; font-weight: 800; color: #111111;">{{ lease.unit_number }}</td>
-                                    <td style="padding: 16px; color: #777777;">{{ lease.start_date }}</td>
-                                </tr>
-                                {% endfor %}
+
+                            {% for lease in leases %}
+
+                            <tr>
+
+                                <td style="padding:16px;color:#ba9e47;font-weight:700;">
+                                    #LEASE-{{ lease.lease_id }}
+                                </td>
+
+                                <td style="padding:16px;">
+                                    {{ lease.tenant_name }}
+                                </td>
+
+                                <td style="padding:16px;font-weight:700;">
+                                    {{ lease.unit_number }}
+                                </td>
+
+                                <td style="padding:16px;color:#2ecc71;font-weight:700;">
+                                    KES {{ lease.monthly_rent }}
+                                </td>
+
+                                <td style="padding:16px;">
+                                    {{ lease.status }}
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
                             {% else %}
-                                <tr><td colspan="4" style="padding: 40px; text-align: center; color: #999999; font-weight: 300;">No active binding lease contracts on network.</td></tr>
+
+                            <tr>
+
+                                <td colspan="5" style="padding:40px;text-align:center;color:#999;">
+                                    No lease agreements found.
+                                </td>
+
+                            </tr>
+
                             {% endif %}
+
                         </tbody>
+
                     </table>
+
                 </div>
+
             </div>
 
             <div class="col-md-4">
-                <div style="background: #ffffff; padding: 32px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-                    <h3 style="font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 20px 0; color: #111111;">BIND NEW LEASE</h3>
+
+                <div
+                    style="background:#fff;padding:32px;border-radius:12px;border:1px solid #eee;box-shadow:0 10px 30px rgba(0,0,0,.03);">
+
+                    <h3
+                        style="font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;color:#111;">
+                        CREATE NEW LEASE
+                    </h3>
+
                     <form method="POST" action="{{ url_for('manage_leases') }}">
-                        <div style="margin-bottom: 18px;">
-                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">SELECT PROFILE TENANT</label>
-                            <select name="tenant_id" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px;">
-                                <option value="">-- Choose Profile --</option>
-                                {% if tenants %}
-                                    {% for t in tenants %}
-                                        <option value="{{ t.id }}">{{ t.name }}</option>
-                                    {% endfor %}
-                                {% endif %}
+
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Tenant
+                            </label>
+
+                            <select name="tenant_id" required
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #ddd;border-radius:6px;font-size:13px;color:#111;">
+
+                                <option value="">Select Tenant</option>
+
+                                {% for tenant in tenants %}
+
+                                <option value="{{ tenant.tenant_id }}">
+                                    {{ tenant.full_name }}
+                                </option>
+
+                                {% endfor %}
+
                             </select>
+
                         </div>
-                        <div style="margin-bottom: 18px;">
-                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">TARGET ROOM DOOR</label>
-                            <select name="unit_id" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px;">
-                                <option value="">-- Choose Room Code --</option>
-                                {% if units %}
-                                    {% for u in units %}
-                                        <option value="{{ u.id }}">{{ u.unit_number }}</option>
-                                    {% endfor %}
-                                {% endif %}
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Rental Unit
+                            </label>
+
+                            <select name="unit_id" required
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;color:#111;">
+
+                                <option value="">Select Unit</option>
+
+                                {% for unit in units %}
+
+                                <option value="{{ unit.unit_id }}">
+                                    {{ unit.unit_number }}
+                                </option>
+
+                                {% endfor %}
+
                             </select>
+
                         </div>
-                        <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">START COMMENCEMENT DATE</label>
-                            <input type="date" name="start_date" required style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px; outline: none;">
+
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Lease Start Date
+                            </label>
+
+                            <input type="date" name="start_date" required
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
                         </div>
-                        <button type="submit" style="width: 100%; padding: 14px; background: #111111; color: #ffffff; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;">AUTHORIZE CONTRACT BOUNDS</button>
+
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Lease End Date
+                            </label>
+
+                            <input type="date" name="end_date" required
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
+                        </div>
+
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Deposit Amount (KES)
+                            </label>
+
+                            <input type="number" name="deposit_amount" required placeholder="5000"
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
+                        </div>
+
+                        <div style="margin-bottom:24px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Monthly Rent (KES)
+                            </label>
+
+                            <input type="number" name="monthly_rent" required placeholder="25000"
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
+                        </div>
+
+                        <div style="margin-bottom:24px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Lease Status
+                            </label>
+
+                            <select name="status" required
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;color:#111;">
+
+                                <option value="Active">Active</option>
+                                <option value="Expired">Expired</option>
+                                <option value="Terminated">Terminated</option>
+
+                            </select>
+
+                        </div>
+
+                        <button type="submit"
+                            style="width:100%;padding:14px;background:linear-gradient(135deg,#ba9e47 0%,#ecd078 100%);color:#ffffff;border:none;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer;">
+
+                            CREATE LEASE
+
+                        </button>
+
                     </form>
+
                 </div>
+
             </div>
+            <div
+                style="margin-top:30px;background:#ffffff;border:1px solid #eeeeee;border-radius:12px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+
+                <p
+                    style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#ba9e47;font-weight:700;margin:0;">
+                    SUMMARY
+                </p>
+
+                <h3 style="margin:8px 0 10px 0;font-size:22px;font-weight:700;color:#111111;">
+                    {{ leases|length }}
+                </h3>
+
+                <p style="margin:0;color:#777777;font-size:13px;">
+                    Total lease agreements registered in the system.
+                </p>
+
+            </div>
+
         </div>
+
     </div>
+
 </div>
+
 {% endblock %}

@@ -176,5 +176,5 @@ def execute_system_ddl_setup():
         for statement in ddl_statements:
             cur.execute(statement)
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     execute_system_ddl_setup()

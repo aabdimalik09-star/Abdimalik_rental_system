@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid"
+    style="padding:0;background:#fafafa;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+
+    <div
+        style="background:#ffffff;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eeeeee;">
+        <div style="display:flex;align-items:center;gap:12px;">
+            <div
+                style="background:linear-gradient(135deg,#ba9e47,#ecd078);width:40px;height:40px;border-radius:8px;color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;">
+                A
+            </div>
+
+            <div>
+                <span style="display:block;font-weight:800;font-size:18px;letter-spacing:3px;">ABDIMALIK</span>
+                <span style="display:block;font-size:10px;color:#ba9e47;letter-spacing:2px;">RENTAL SYSTEM</span>
+            </div>
+        </div>
+
+        <span
+            style="background:#f8f3e4;padding:6px 18px;border-radius:20px;color:#ba9e47;font-size:11px;font-weight:700;">
+            MANAGEMENT REPORTS
+        </span>
+    </div>
+
+    <div class="container mt-5">
+
+        <p style="font-size:11px;color:#ba9e47;font-weight:700;letter-spacing:2px;">
+            REPORTING
+        </p>
+
+        <h2 style="letter-spacing:4px;font-weight:300;">
+            SYSTEM REPORTS
+        </h2>
+
+        <div class="row mt-4">
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Total Properties</h6>
+                        <h2 style="color:#ba9e47;">{{ total_properties }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Total Units</h6>
+                        <h2 style="color:#ba9e47;">{{ total_units }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Total Tenants</h6>
+                        <h2 style="color:#ba9e47;">{{ total_tenants }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Total Leases</h6>
+                        <h2 style="color:#ba9e47;">{{ total_leases }}</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-4">
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Total Payments</h6>
+                        <h2 style="color:#28a745;">{{ total_payments }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Total Invoices</h6>
+                        <h2 style="color:#007bff;">{{ total_invoices }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Maintenance</h6>
+                        <h2 style="color:#dc3545;">{{ total_requests }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h6>Employees</h6>
+                        <h2 style="color:#6f42c1;">{{ total_employees }}</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm border-0 mt-5">
+
+            <div class="card-header bg-white">
+                <h5 style="letter-spacing:2px;font-weight:700;">
+                    SYSTEM SUMMARY REPORT
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Report</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Properties</td>
+                            <td>{{ total_properties }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Units</td>
+                            <td>{{ total_units }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Tenants</td>
+                            <td>{{ total_tenants }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Leases</td>
+                            <td>{{ total_leases }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Payments</td>
+                            <td>{{ total_payments }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Invoices</td>
+                            <td>{{ total_invoices }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Maintenance Requests</td>
+                            <td>{{ total_requests }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Employees</td>
+                            <td>{{ total_employees }}</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

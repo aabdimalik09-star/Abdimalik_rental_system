@@ -1,73 +1,208 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid" style="padding: 0; background: #fafafa; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-    
-    <div style="background: #ffffff; padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; font-weight: 800; font-size: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px;">A</div>
-            <div>
-                <span style="color: #111111; font-weight: 800; font-size: 18px; letter-spacing: 3px; display: block; text-transform: uppercase; margin: 0;">ABDIMALIK</span>
-                <span style="color: #ba9e47; font-weight: 700; font-size: 10px; letter-spacing: 2px; display: block; text-transform: uppercase; margin: 0;">RENTAL SYSTEM</span>
+
+<div class="container-fluid"
+    style="padding:0;background:#fafafa;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+
+    <div
+        style="background:#ffffff;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eeeeee;">
+
+        <div style="display:flex;align-items:center;gap:12px;">
+
+            <div
+                style="background:linear-gradient(135deg,#ba9e47 0%,#ecd078 100%);color:#fff;font-weight:800;font-size:20px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                A
             </div>
+
+            <div>
+                <span
+                    style="color:#111;font-weight:800;font-size:18px;letter-spacing:3px;display:block;">ABDIMALIK</span>
+                <span style="color:#ba9e47;font-size:10px;font-weight:700;letter-spacing:2px;display:block;">RENTAL
+                    SYSTEM</span>
+            </div>
+
         </div>
-        <span style="font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ba9e47; background: rgba(186,158,71,0.1); padding: 6px 14px; border-radius: 20px;">CLIENT SYSTEM RECORDS</span>
+
+        <span
+            style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ba9e47;background:rgba(186,158,71,.1);padding:4px 14px;border-radius:20px;">
+            TENANT DIRECTORY
+        </span>
+
     </div>
 
-    <div class="container" style="margin-top: 40px; padding-bottom: 60px;">
+    <div class="container" style="margin-top:40px;padding-bottom:40px;">
+
         <div class="row">
+
             <div class="col-md-8">
-                <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #ba9e47; margin: 0; font-weight: 700;">DIRECTORY</p>
-                <h2 style="font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; margin: 4px 0 24px 0; color: #111111;">REGISTERED TENANTS</h2>
-                
-                <div style="background: #ffffff; border: 1px solid #eeeeee; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
-                    <table class="table" style="margin: 0; font-size: 13px;">
+
+                <p
+                    style="font-size:11px;text-transform:uppercase;letter-spacing:3px;color:#ba9e47;font-weight:700;margin:0;">
+                    MANAGEMENT
+                </p>
+
+                <h2
+                    style="font-size:24px;font-weight:300;text-transform:uppercase;letter-spacing:4px;margin:4px 0 24px;color:#111;">
+                    REGISTERED TENANTS
+                </h2>
+
+                <div
+                    style="background:#fff;border:1px solid #eeeeee;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.03);">
+
+                    <table class="table" style="margin:0;font-size:13px;">
+
                         <thead>
-                            <tr style="background: #fafafa; color: #111111; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
-                                <th style="padding: 16px;">TENANT ID</th>
-                                <th style="padding: 16px;">FULL LEGAL NAME</th>
-                                <th style="padding: 16px;">EMAIL COMMUNICATION</th>
-                                <th style="padding: 16px;">PHONE HUB</th>
+
+                            <tr style="background:#fafafa;font-size:10px;text-transform:uppercase;letter-spacing:1px;">
+
+                                <th style="padding:16px;">ID</th>
+                                <th style="padding:16px;">FULL NAME</th>
+                                <th style="padding:16px;">PHONE</th>
+                                <th style="padding:16px;">EMAIL</th>
+
                             </tr>
+
                         </thead>
+
                         <tbody>
-                            {% if tenants %}
-                                {% for tenant in tenants %}
-                                <tr>
-                                    <td style="padding: 16px; color: #ba9e47; font-weight: 700;">#{{ tenant.id }}</td>
-                                    <td style="padding: 16px; font-weight: 800; color: #111111;">{{ tenant.name }}</td>
-                                    <td style="padding: 16px; color: #444444;">{{ tenant.email }}</td>
-                                    <td style="padding: 16px; font-weight: 700;">{{ tenant.phone }}</td>
-                                </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr><td colspan="4" style="padding: 40px; text-align: center; color: #999999; font-weight: 300;">No corporate tenant profiles found in directory.</td></tr>
-                            {% endif %}
+
+                            {% for tenant in tenants %}
+
+                            <tr>
+
+                                <td style="padding:16px;color:#ba9e47;font-weight:700;">
+                                    #TEN-{{ tenant.tenant_id }}
+                                </td>
+
+                                <td style="padding:16px;font-weight:700;color:#111;">
+                                    {{ tenant.full_name }}
+                                </td>
+
+                                <td style="padding:16px;">
+                                    {{ tenant.phone }}
+                                </td>
+
+                                <td style="padding:16px;">
+                                    {{ tenant.email }}
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
                         </tbody>
+
                     </table>
+
                 </div>
+
             </div>
 
             <div class="col-md-4">
-                <div style="background: #ffffff; padding: 32px; border-radius: 12px; border: 1px solid #eeeeee; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-                    <h3 style="font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 20px 0; color: #111111;">ONBOARD TENANT</h3>
+
+                <div
+                    style="background:#fff;padding:32px;border-radius:12px;border:1px solid #eeeeee;box-shadow:0 10px 30px rgba(0,0,0,.03);">
+
+                    <h3
+                        style="font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;">
+                        ADD NEW TENANT
+                    </h3>
+
                     <form method="POST" action="{{ url_for('manage_tenants') }}">
-                        <div style="margin-bottom: 18px;">
-                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">CLIENT FULL NAME</label>
-                            <input type="text" name="name" required placeholder="e.g. Abdi Malik" style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px; outline: none;">
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Full Name
+                            </label>
+
+                            <input type="text" name="full_name" required placeholder="Enter full name"
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
                         </div>
-                        <div style="margin-bottom: 18px;">
-                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">EMAIL PROFILE</label>
-                            <input type="email" name="email" required placeholder="name@domain.com" style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px; outline: none;">
+
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Phone Number
+                            </label>
+
+                            <input type="text" name="phone" required placeholder="+254..."
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
                         </div>
-                        <div style="margin-bottom: 24px;">
-                            <label style="display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777777; margin-bottom: 6px;">CONTACT PHONE NUMBER</label>
-                            <input type="text" name="phone" required placeholder="e.g. +254..." style="width: 100%; padding: 12px; background: #fafafa; border: 1px solid #dddddd; border-radius: 6px; font-size: 13px; outline: none;">
+
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Email Address
+                            </label>
+
+                            <input type="email" name="email" required placeholder="example@email.com"
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
                         </div>
-                        <button type="submit" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #ba9e47 0%, #ecd078 100%); color: #ffffff; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer;">SAVE PROFILE SYSTEM</button>
+
+                        <div style="margin-bottom:18px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                ID Number
+                            </label>
+
+                            <input type="text" name="id_number" required placeholder="National ID"
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;">
+
+                        </div>
+
+                        <div style="margin-bottom:24px;">
+
+                            <label
+                                style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#777;margin-bottom:6px;">
+                                Address
+                            </label>
+
+                            <textarea name="address" rows="3" required placeholder="Tenant address"
+                                style="width:100%;padding:12px;background:#fafafa;border:1px solid #dddddd;border-radius:6px;font-size:13px;outline:none;resize:none;"></textarea>
+
+                        </div>
+
+                        <button type="submit"
+                            style="width:100%;padding:14px;background:linear-gradient(135deg,#ba9e47 0%,#ecd078 100%);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
+
+                            REGISTER TENANT
+
+                        </button>
+
                     </form>
+
                 </div>
+
             </div>
+            <div
+                style="margin-top:30px;background:#ffffff;border:1px solid #eeeeee;border-radius:12px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.03);">
+
+                <p
+                    style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#ba9e47;font-weight:700;margin:0;">
+                    SUMMARY
+                </p>
+
+                <h3 style="margin:8px 0 10px 0;font-size:22px;font-weight:700;color:#111111;">
+                    {{ tenants|length }}
+                </h3>
+
+                <p style="margin:0;color:#777777;font-size:13px;">
+                    Total tenants currently registered in the rental management system.
+                </p>
+
+            </div>
+
         </div>
+
     </div>
+
 </div>
+
 {% endblock %}
